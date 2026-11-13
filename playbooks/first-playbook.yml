@@ -1,0 +1,21 @@
+- name: My First Ansible Playbook
+  hosts: all
+  become: yes
+  gather_facts: yes
+
+  tasks:
+    - name: Display server hostname
+      command: hostname
+      register: server_hostname
+
+    - name: Display server information
+      debug:
+        msg: "Connected to server: {{ server_hostname.stdout }}"
+
+    - name: Display operating system information
+      debug:
+        msg: "Operating System: {{ ansible_facts.distribution }}"
+
+    - name: Display private IP address
+      debug:
+        msg: "Server IP: {{ ansible_facts.default_ipv4.address }}"

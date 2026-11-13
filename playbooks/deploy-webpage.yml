@@ -1,0 +1,25 @@
+---
+- name: Deploy Custom Webpage
+  hosts: webservers
+  become: yes
+  gather_facts: yes
+
+  tasks:
+    - name: Deploy custom HTML page
+      copy:
+        content: |
+          <!DOCTYPE html>
+          <html>
+          <head>
+              <title>Ansible Demo</title>
+          </head>
+          <body>
+              <h1>Hello from Ansible!</h1>
+              <p>This webpage was deployed automatically.</p>
+              <p>Server: {{ ansible_facts.hostname }}</p>
+          </body>
+          </html>
+        dest: /var/www/html/index.html
+        owner: www-data
+        group: www-data
+        mode: '0644'

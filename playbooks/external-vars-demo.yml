@@ -1,0 +1,28 @@
+---
+- name: External Variables Demonstration
+  hosts: all
+  gather_facts: yes
+
+  vars_files:
+    - ../vars/app-config.yml
+
+  tasks:
+    - name: Display application configuration
+      debug:
+        msg: "Application: {{ app_name }}"
+
+    - name: Display deployment environment
+      debug:
+        msg: "Environment: {{ deployment_environment }}"
+
+    - name: Display application port
+      debug:
+        msg: "Application port: {{ app_port }}"
+
+    - name: Display application version
+      debug:
+        msg: "Application version: {{ app_version }}"
+
+    - name: Display application owner
+      debug:
+        msg: "Application owner: {{ app_owner }}"

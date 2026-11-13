@@ -1,0 +1,6 @@
+---
+app_name: "Nginx"
+deployment_environment: "Development"
+app_port: 80
+app_version: "1.24"
+app_owner: "DevOps Team"

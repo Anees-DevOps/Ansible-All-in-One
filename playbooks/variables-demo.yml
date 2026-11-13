@@ -1,0 +1,30 @@
+- name: Ansible Variables Demonstration
+  hosts: all
+  gather_facts: yes
+
+  vars:
+    student_name: "DevOps Student"
+    app_name: "Nginx"
+    deployment_environment: "Development"
+    app_port: 80
+
+  tasks:
+    - name: Display application details
+      debug:
+        msg: "Deploying {{ app_name }} in {{ deployment_environment }} environment"
+
+    - name: Display application port
+      debug:
+        msg: "Application will use port {{ app_port }}"
+
+    - name: Display student information
+      debug:
+        msg: "Demonstration prepared for {{ student_name }}"
+
+    - name: Display server hostname
+      debug:
+        msg: "Running on {{ ansible_facts.hostname }}"
+
+    - name: Display operating system
+      debug:
+        msg: "{{ ansible_facts.distribution }} {{ ansible_facts.distribution_version }}"

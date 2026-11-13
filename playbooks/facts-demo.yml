@@ -1,0 +1,25 @@
+---
+- name: Ansible Facts Demonstration
+  hosts: all
+  gather_facts: yes
+
+  tasks:
+    - name: Display server hostname
+      debug:
+        msg: "Hostname: {{ ansible_facts.hostname }}"
+
+    - name: Display operating system
+      debug:
+        msg: "OS: {{ ansible_facts.distribution }} {{ ansible_facts.distribution_version }}"
+
+    - name: Display memory
+      debug:
+        msg: "Total Memory: {{ ansible_facts.memtotal_mb }} MB"
+
+    - name: Display CPU information
+      debug:
+        msg: "Virtual CPUs: {{ ansible_facts.processor_vcpus }}"
+
+    - name: Display private IP
+      debug:
+        msg: "Private IP: {{ ansible_facts.default_ipv4.address }}"

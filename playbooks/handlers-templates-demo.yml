@@ -1,0 +1,21 @@
+---
+- name: Demonstrate Ansible Templates and Handlers
+  hosts: webservers
+  become: yes
+  gather_facts: yes
+
+  tasks:
+    - name: Deploy Nginx configuration from template
+      template:
+        src: ../templates/ansible-demo.conf.j2
+        dest: /etc/nginx/conf.d/ansible-demo.conf
+        owner: root
+        group: root
+        mode: '0644'
+      notify: Reload Nginx
+
+  handlers:
+    - name: Reload Nginx
+      service:
+        name: nginx
+        state: reloaded

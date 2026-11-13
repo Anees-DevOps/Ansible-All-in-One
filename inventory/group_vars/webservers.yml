@@ -1,0 +1,6 @@
+---
+app_name: "Nginx"
+deployment_environment: "Development"
+app_port: 80
+support_team: "Cloud DevOps Team"
+nginx_port: 8080

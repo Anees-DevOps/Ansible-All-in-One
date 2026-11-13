@@ -1,0 +1,8 @@
+[webservers]
+ansible-node-1 ansible_host=54.164.226.181
+ansible-node-2 ansible_host=98.88.75.39
+
+[webservers:vars]
+ansible_user=ubuntu
+ansible_ssh_private_key_file=~/.ssh/ansible-demo-key.pem
+ansible_python_interpreter=/usr/bin/python3

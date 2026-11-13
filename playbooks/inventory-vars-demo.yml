@@ -1,0 +1,25 @@
+---
+- name: Inventory Variables Demonstration
+  hosts: all
+  gather_facts: no
+
+  tasks:
+    - name: Display application configuration
+      debug:
+        msg: "Application: {{ app_name }}"
+
+    - name: Display deployment environment
+      debug:
+        msg: "Environment: {{ deployment_environment }}"
+
+    - name: Display application port
+      debug:
+        msg: "Application Port: {{ app_port }}"
+
+    - name: Display support team
+      debug:
+        msg: "Support Team: {{ support_team }}"
+
+    - name: Display server purpose
+      debug:
+        msg: "Server Purpose: {{ server_purpose }}"

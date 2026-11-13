@@ -1,0 +1,59 @@
+
+name: Ansible CI/CD Deployment
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    name: Deploy to AWS EC2
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install Ansible
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y ansible
+
+      - name: Configure SSH
+        env:
+          EC2_SSH_KEY: ${{ secrets.EC2_SSH_KEY }}
+        run: |
+          mkdir -p ~/.ssh
+          chmod 700 ~/.ssh
+
+          printf '%s\n' "$EC2_SSH_KEY" > ~/.ssh/ansible-demo-key.pem
+          chmod 600 ~/.ssh/ansible-demo-key.pem
+
+          ssh-keygen -y -f ~/.ssh/ansible-demo-key.pem > /dev/null
+
+      - name: Create Ansible inventory
+        env:
+          NODE1: ${{ secrets.EC2_NODE_1_HOST }}
+          NODE2: ${{ secrets.EC2_NODE_2_HOST }}
+        run: |
+          cat > /tmp/hosts <<EOF
+          [webservers]
+          ansible-node-1 ansible_host=${NODE1}
+          ansible-node-2 ansible_host=${NODE2}
+
+          [webservers:vars]
+          ansible_user=ubuntu
+          ansible_ssh_private_key_file=/home/runner/.ssh/ansible-demo-key.pem
+          ansible_python_interpreter=/usr/bin/python3
+          EOF
+
+      - name: Test EC2 connectivity
+        run: |
+          ansible webservers -i /tmp/hosts -m ping
+
+      - name: Execute Ansible deployment
+        run: |
+          ansible-playbook -i /tmp/hosts playbooks/role-demo.yml
+

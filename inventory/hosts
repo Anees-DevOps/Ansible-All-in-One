@@ -1,6 +1,6 @@
 [webservers]
-ansible-node-1 ansible_host=54.164.226.181
-ansible-node-2 ansible_host=98.88.75.39
+ansible-node-1 ansible_host=54.205.110.66
+ansible-node-2 ansible_host=34.234.92.213
 
 [webservers:vars]
 ansible_user=ubuntu
